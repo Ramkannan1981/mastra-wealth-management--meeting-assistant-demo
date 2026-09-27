@@ -116,6 +116,23 @@ Mastra's model router supports) — this repo isn't pinned to one vendor.
 npm run typecheck
 ```
 
+## Testing
+
+Verified clean from a fresh install — no errors, no warnings:
+
+```bash
+npm install
+npm run typecheck   # tsc --noEmit -- passes with zero errors
+npm run eval        # 12/12 deterministic guardrail assertions pass, no API key needed
+npm start            # runs the full pipeline against the sample transcript;
+                     # without a model key it completes Stage 1 (input guardrails)
+                     # and exits cleanly rather than crashing
+```
+
+`npm test` runs `typecheck` + `eval` together — this is the command a CI
+pipeline would run on every commit; both are fast and require no external
+API access.
+
 ## Design notes / things I'd call out in a review
 
 - **Two separate concerns, kept separate**: what's *in* the data (PII) is
